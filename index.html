@@ -13,7 +13,7 @@
     <div class="uk-navbar-left">
 
       <ul class="uk-navbar-nav">
-      <li class="uk-active" uk-tooltip="title: Created By Dracks; pos: bottom"><a href="#" >Eve Profile tool</a></li>
+        <li class="uk-active" uk-tooltip="title: Created By Dracks; pos: bottom"><a href="#" >Eve Profile tool</a></li>
         <li><a href="#" uk-toggle="target: #modal-backup">Backup selected profiles</a></li>
         <li><a href="#" uk-toggle="target: #modal-restore">restore selected profiles</a></li>
         <li><a href="#" uk-toggle="target: #modal-apply">Apply main profile on selected items</a></li>
@@ -94,7 +94,7 @@
     <p>put text here</p>
     <p class="uk-text-right">
       <button class="uk-button uk-button-default uk-modal-close" type="button">Cancel</button>
-      <button class="uk-button uk-button-primary" type="button">Make Backup</button>
+      <button id='Bvalid' class="uk-button uk-button-primary" type="button">Make Backup</button>
     </p>
   </div>
 </div>
@@ -106,7 +106,7 @@
     <p>put text here</p>
     <p class="uk-text-right">
       <button class="uk-button uk-button-default uk-modal-close" type="button">Cancel</button>
-      <button class="uk-button uk-button-primary" type="button">Restore</button>
+      <button id='Rvalid' class="uk-button uk-button-primary" type="button">Restore</button>
     </p>
   </div>
 </div>
@@ -118,7 +118,7 @@
     <p>test here</p>
     <p class="uk-text-right">
       <button class="uk-button uk-button-default uk-modal-close" type="button">Cancel</button>
-      <button class="uk-button uk-button-primary" type="button">Apply</button>
+      <button id='Avalid' class="uk-button uk-button-primary" type="button">Apply</button>
     </p>
   </div>
 </div>
@@ -126,5 +126,26 @@
 </body>
 <script type="text/javascript">
   const electron = require('electron');
+
+  document.getElementById('Bvalid').addEventListener('click', () => {
+    electron.ipcRenderer.send('Bvalid');
+  });
+
+  document.getElementById('Avalid').addEventListener('click', () => {
+    electron.ipcRenderer.send('Avalid');
+  });
+
+  document.getElementById('Rvalid').addEventListener('click', () => {
+    electron.ipcRenderer.send('Rvalid');
+  });
+
+  //ici ajouter les div en enlever le chargement
+  electron.ipcRenderer.on('info' , function(event, arg){ 
+    console.log(arg) 
+  });
+
+  document.addEventListener('DOMContentLoaded', function() {
+    electron.ipcRenderer.send('ready');
+  });
 </script>
 </html>
