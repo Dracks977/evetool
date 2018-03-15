@@ -33,8 +33,12 @@ function createWindow () {
        char.valide(data);
     }); 
 
-    ipcMain.on('ready', (event, status) => {
-      char.sendChar(event, status);
+    ipcMain.on('ready', (event, status ) => {
+      char.setting(event, status);
+    });
+
+    ipcMain.on('sendChar', (event, data) => {
+      char.sendChar(event, data);
     });
 
 

@@ -5,11 +5,16 @@
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "electron ."
+    "start": "electron .",
+    "pmac": "electron-packager . --overwrite --platform=darwin --arch=x64 --icon=icons/mac/icon.icns --prune=true --out=release-builds",
+    "pwin": "electron-packager . --overwrite --asar=true --platform=win32 --arch=ia32 --icon=icons/win/icon.ico --prune=true --out=release-builds --version-string.CompanyName=Dracks --version-string.FileDescription=CE --version-string.ProductName='Evetool'"
   },
   "author": "Dracks",
   "license": "ISC",
   "devDependencies": {
     "electron": "^1.8.3"
+  },
+  "dependencies": {
+    "request": "^2.85.0"
   }
 }
