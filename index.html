@@ -92,10 +92,12 @@
     electron.ipcRenderer.send('Bvalid', file);
   });
 
+  /*ici object avec list des file a changer et le main profile*/
   $('#Avalid').click(() => {
     electron.ipcRenderer.send('Avalid');
   });
 
+  
   $('#Rvalid').click(() => {
     electron.ipcRenderer.send('Rvalid');
   });
