@@ -25,7 +25,7 @@
    electron.ipcRenderer.send('Avalid', {"main": main, profiles: file});
    UIkit.modal.alert("Profile apply (we backup ur old profiles : see .backupauto)");
  } else {
-   UIkit.modal.alert("You must select on active profile");
+   UIkit.modal.alert("You must select a main profile");
  }
 });
 
