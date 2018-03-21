@@ -93,7 +93,7 @@ electron.ipcRenderer.on('setting', function(event,arg){
   });
 
 
-electron.ipcRenderer.on('info' , function(event, arg){
+electron.ipcRenderer.on('dl' , function(event, arg){
   $('#load').show();
 })
 

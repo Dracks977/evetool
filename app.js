@@ -2,7 +2,9 @@ const {app, BrowserWindow, Menu, ipcMain, ipcRenderer} = require('electron')
 const url = require('url')
 const path = require('path')
 const char = require('./src/char.js')
-const {autoUpdater} = require("electron-updater");
+if (process.platform !== 'darwin'){
+  const {autoUpdater} = require("electron-updater")
+}
 
 
 let win;
@@ -45,27 +47,29 @@ function createWindow () {
 
 
   }
+  if (process.platform !== 'darwin'){
+    autoUpdater.on('update-downloaded', (info) => {
+      sendStatusToWindow('Update downloaded');
+      win.webContents.send('updateReady')
+    });
 
-  autoUpdater.on('update-downloaded', (info) => {
-    sendStatusToWindow('Update downloaded');
-    win.webContents.send('updateReady')
-  });
+    autoUpdater.on('update-available', (info) =>{
+      console.log('update dispo je dl')
+      win.webContents.send('dl');
+    })
 
-  autoUpdater.on('update-available', (info) =>{
-    console.log('update dispo je dl')
-    win.webContents.send('dl');
-  })
+    autoUpdater.on('download-progress', (progressObj) => {
+      console.log(progressObj)
+      win.setProgressBar(progressObj.percent/100)
+    })
 
-  autoUpdater.on('download-progress', (progressObj) => {
-    console.log(progressObj)
-    win.setProgressBar(progressObj.percent/100)
-  })
-
-  ipcMain.on("quitAndInstall", (event, arg) => {
-    autoUpdater.quitAndInstall();
-  })
+    ipcMain.on("quitAndInstall", (event, arg) => {
+      autoUpdater.quitAndInstall();
+    })
+  }
   
   app.on('ready', function(){
     createWindow();
-    autoUpdater.checkForUpdates();
+    if (process.platform !== 'darwin')
+      autoUpdater.checkForUpdates();
   })
