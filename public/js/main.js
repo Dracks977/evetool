@@ -3,6 +3,7 @@
  var dialog = remote.dialog;
  var i = 0;
 
+
  $('#Bvalid').click(() => {
   var file = new Array();
   $('label[op=1]').each(function(){
@@ -67,10 +68,10 @@ electron.ipcRenderer.on('setting', function(event,arg){
   var modal = UIkit.modal("#modal-select");
   for (var i in arg)
    $('#selectss').append("<option>"+arg[i]+"</option>")
-    modal.show();
-  $('#Aselect').click(function(){
-     electron.ipcRenderer.send('sendChar', $( "#selectss option:selected" ).text()); 
-  })
+ modal.show();
+ $('#Aselect').click(function(){
+   electron.ipcRenderer.send('sendChar', $( "#selectss option:selected" ).text()); 
+ })
 })
 
   //ici ajouter les div en enlever le chargement
@@ -91,6 +92,28 @@ electron.ipcRenderer.on('setting', function(event,arg){
     i++;
   });
 
-  document.addEventListener('DOMContentLoaded', function() {
-    electron.ipcRenderer.send('ready');
-  });
+
+electron.ipcRenderer.on('info' , function(event, arg){
+  $('#load').show();
+})
+
+
+// wait for an updateReady message
+electron.ipcRenderer.on('updateReady', function(event, text) {
+  // changes the text of the button
+  $('#load').hide();
+  var choice = dialog.showMessageBox(
+    remote.getCurrentWindow(),
+    {
+      type: 'question',
+      buttons: ['Yes', 'No'],
+      title: 'Make update',
+      message: 'A new update is available, proceed to the installation of this one?'
+    });
+  if(choice === 0)
+    electron.ipcRenderer.send('quitAndInstall');
+})
+
+document.addEventListener('DOMContentLoaded', function() {
+  electron.ipcRenderer.send('ready');
+});

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>test</title>
+  <title>Evetool</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="public/css/uikit.min.css" />
@@ -26,10 +26,12 @@
             <span class="uk-icon uk-margin-small-right" uk-icon="icon: cog" uk-tooltip="title: config eve path; pos: bottom"></span>
           </a>
         </li>
-        <!-- <li><div id="load" class="uk-navbar-item"><div uk-spinner></div></div></li> -->
-      </ul>
-    </div>
-  </nav>
+        <li> 
+         <div id="load" style='display:none;' class="uk-navbar-item"><div uk-spinner></div></div>
+       </li>
+     </ul>
+   </div>
+ </nav>
 </div>
 <body >
 
@@ -75,14 +77,14 @@
   </div>
 
 
-   <!-- This is the modal -->
+  <!-- This is the modal -->
   <div id="modal-select" uk-modal>
     <div class="uk-modal-dialog uk-modal-body">
       <h2 class="uk-modal-title">Select Settings</h2>
       <div class="uk-margin">
-            <select id="selectss" class="uk-select">
-            </select>
-        </div>
+        <select id="selectss" class="uk-select">
+        </select>
+      </div>
       <p class="uk-text-right">
         <button id='Aselect' class="uk-button uk-button-primary uk-modal-close" type="button">select</button>
       </p>
@@ -90,5 +92,5 @@
   </div>
 
 </body>
-  <script src="public/js/main.js"></script>
+<script src="public/js/main.js"></script>
 </html>
