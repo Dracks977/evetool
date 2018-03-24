@@ -53,13 +53,19 @@ module.exports =  {
 	},
 	backup : (data) => {
 		console.log(data);
-		console.log(pathtofile);
+		console.log(pathtofile + "/" + saveDir);
+		if (!fs.existsSync(pathtofile + "/" + saveDir)) {
+			fs.mkdirSync(pathtofile + "/" + saveDir, 0777);
+		}
 		for (let o in data){
 			fs.writeFileSync(pathtofile + "/" + saveDir + data[o] + ".backup_" + Date.now(), fs.readFileSync(pathtofile + "/" +data[o]));
 		}
 	},
 	valide : (data) => {
 		console.log(data);
+		if (!fs.existsSync(pathtofile + "/" + saveDir)) {
+			fs.mkdirSync(pathtofile + "/" + saveDir, 0777);
+		}
 		for (let o in data.profiles){
 			fs.rename(pathtofile + "/" + saveDir + data.profiles[o], pathtofile + "/" +data.profiles[o] + ".backupAuto_" +Date.now(), function(err) {
 				if ( err ) console.log('ERROR: ' + err);
