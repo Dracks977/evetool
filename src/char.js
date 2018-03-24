@@ -3,6 +3,7 @@ const api = require('./api.js');
 let pathtofile = null;
 let setting;
 let dir;
+const saveDir = "Eve_Profile/";
 module.exports =  {
 	setting: (event, status) => {
 		const regex2 = /[\w]{1,}(eve_sharedcache_tq_tranquility)/;
@@ -54,13 +55,13 @@ module.exports =  {
 		console.log(data);
 		console.log(pathtofile);
 		for (let o in data){
-			fs.writeFileSync(pathtofile + "/" +data[o] + ".backup", fs.readFileSync(pathtofile + "/" +data[o]));
+			fs.writeFileSync(pathtofile + "/" + saveDir + data[o] + ".backup_" + Date.now(), fs.readFileSync(pathtofile + "/" +data[o]));
 		}
 	},
 	valide : (data) => {
 		console.log(data);
 		for (let o in data.profiles){
-			fs.rename(pathtofile + "/" +data.profiles[o], pathtofile + "/" +data.profiles[o] + ".backupAuto", function(err) {
+			fs.rename(pathtofile + "/" + saveDir + data.profiles[o], pathtofile + "/" +data.profiles[o] + ".backupAuto_" +Date.now(), function(err) {
 				if ( err ) console.log('ERROR: ' + err);
 				fs.createReadStream(pathtofile + "/" +data.main).pipe(fs.createWriteStream(pathtofile + "/" +data.profiles[o]));
 			});

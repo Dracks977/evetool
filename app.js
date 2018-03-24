@@ -2,9 +2,8 @@ const {app, BrowserWindow, Menu, ipcMain, ipcRenderer} = require('electron')
 const url = require('url')
 const path = require('path')
 const char = require('./src/char.js')
-if (process.platform !== 'darwin'){
-  const {autoUpdater} = require("electron-updater")
-}
+const {autoUpdater} = require("electron-updater")
+
 
 
 let win;
@@ -49,7 +48,6 @@ function createWindow () {
   }
   if (process.platform !== 'darwin'){
     autoUpdater.on('update-downloaded', (info) => {
-      sendStatusToWindow('Update downloaded');
       win.webContents.send('updateReady')
     });
 
