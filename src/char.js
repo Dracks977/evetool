@@ -72,10 +72,8 @@ module.exports =  {
 		}
 		for (let o in data.profiles){
 			//ne pas rename just copier
-			fs.rename(pathtofile + "/" + saveDir + data.profiles[o], pathtofile + "/" +data.profiles[o] + ".backup_" + new Date().getUnixTime(), function(err) {
-				if ( err ) console.log('ERROR: ' + err);
-				fs.createReadStream(pathtofile + "/" +data.main).pipe(fs.createWriteStream(pathtofile + "/" +data.profiles[o]));
-			});
+			fs.writeFileSync(pathtofile + "/" + saveDir + data.profiles[o] + ".backup_" +  new Date().getUnixTime(), fs.readFileSync(pathtofile + "/" +data.profiles[o]));
+			fs.createReadStream(pathtofile + "/" +data.main).pipe(fs.createWriteStream(pathtofile + "/" +data.profiles[o]))
 
 		}
 	},
