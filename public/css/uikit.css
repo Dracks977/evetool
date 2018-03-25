@@ -8,6 +8,23 @@
  * 2. Prevent adjustments of font size after orientation changes in IE and iOS.
  * 3. Style
  */
+
+.app {
+  /* Disable text selection, or your app will feel like a web page */
+  -webkit-user-select: none;
+  -webkit-app-region: drag;
+
+  /* Cover the whole window */
+  height: 100%;
+
+  /* Make sure this matches the native window background color that you pass to
+   * electron.BrowserWindow({...}), otherwise your app startup will look janky. */
+  background: rgb(40, 40, 40);
+  
+  /* Smoother startup */
+  animation: fadein 0.5s;
+}
+ 
 html {
   /* 1 */
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;

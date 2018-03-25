@@ -1,7 +1,7 @@
 <!DOCTYPE html>
-<html>
+<html style=" height: 100%;">
 <head>
-  <title>Eve-Profile</title>
+  <title>Eve-Profile 0.1.4-alpha</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="public/css/uikit.min.css" />
@@ -19,7 +19,7 @@
       <ul class="uk-navbar-nav">
         <li class="uk-active" uk-tooltip="title: Created By Dracks; pos: bottom"><a href="#" >Eve Profile tool</a></li>
         <li><a href="#" uk-toggle="target: #modal-backup">Backup selected profiles</a></li>
-        <li><a href="#" uk-toggle="target: #modal-restore">restore selected profiles</a></li>
+        <li><a id="recup" >Restore profiles</a></li>
         <li><a href="#" uk-toggle="target: #modal-apply">Apply main profile on selected items</a></li>
         <li>
           <a href="#">
@@ -33,12 +33,11 @@
    </div>
  </nav>
 </div>
-<body >
+<body style="background-color: #ecf0f1;height: 100%;">
 
   <div id="dom" class="uk-grid-match uk-margin uk-child-width-1-2@s uk-child-width-1-3@m uk-text-center" uk-grid>
 
   </div>
-
 
   <!-- This is the modal -->
   <div id="modal-backup" uk-modal>
@@ -55,41 +54,44 @@
   <!-- This is the modal -->
   <div id="modal-restore" uk-modal>
     <div class="uk-modal-dialog uk-modal-body">
-      <h2 class="uk-modal-title">Restore Selected profile</h2>
-      <p>Not implemented yet</p>
-      <p class="uk-text-right">
-        <button class="uk-button uk-button-default uk-modal-close" type="button">Cancel</button>
-        <button id='Rvalid' class="uk-button uk-button-primary uk-modal-close" type="button">Restore</button>
-      </p>
-    </div>
-  </div>
+      <h2 class="uk-modal-title">Restore Profile List</h2>
+      <table class="uk-table uk-table-divider">
+      <tbody id='recupList'>
 
-  <!-- This is the modal -->
-  <div id="modal-apply" uk-modal>
-    <div class="uk-modal-dialog uk-modal-body">
-      <h2 class="uk-modal-title">Apply </h2>
-      <p>Do you really want to apply your main profile to the selected profiles ?</p>
-      <p class="uk-text-right">
-        <button class="uk-button uk-button-default uk-modal-close" type="button">Cancel</button>
-        <button id='Avalid' class="uk-button uk-button-primary uk-modal-close" type="button">Apply</button>
-      </p>
-    </div>
+      </tbody>
+    </table>
+    <p class="uk-text-right">
+    </p>
   </div>
+</div>
+
+<!-- This is the modal -->
+<div id="modal-apply" uk-modal>
+  <div class="uk-modal-dialog uk-modal-body">
+    <h2 class="uk-modal-title">Apply </h2>
+    <p>Do you really want to apply your main profile to the selected profiles ?</p>
+    <p class="uk-text-right">
+      <button class="uk-button uk-button-default uk-modal-close" type="button">Cancel</button>
+      <button id='Avalid' class="uk-button uk-button-primary uk-modal-close" type="button">Apply</button>
+    </p>
+  </div>
+</div>
 
 
-  <!-- This is the modal -->
-  <div id="modal-select" uk-modal>
-    <div class="uk-modal-dialog uk-modal-body">
-      <h2 class="uk-modal-title">Select Settings</h2>
-      <div class="uk-margin">
-        <select id="selectss" class="uk-select">
-        </select>
-      </div>
-      <p class="uk-text-right">
-        <button id='Aselect' class="uk-button uk-button-primary uk-modal-close" type="button">select</button>
-      </p>
+<!-- This is the modal -->
+<div id="modal-select" uk-modal>
+  <div class="uk-modal-dialog uk-modal-body">
+    <h2 class="uk-modal-title">Select Settings</h2>
+    <div class="uk-margin">
+      <select id="selectss" class="uk-select">
+      </select>
     </div>
+    <p class="uk-text-right">
+      <button id='Aselect' class="uk-button uk-button-primary uk-modal-close" type="button">select</button>
+    </p>
   </div>
+</div>
+
 
 </body>
 <script src="public/js/main.js"></script>

@@ -4,6 +4,9 @@ let pathtofile = null;
 let setting;
 let dir;
 const saveDir = "Eve_Profile/";
+Date.prototype.getUnixTime = function() { return this.getTime()/1000|0 };
+if(!Date.now) Date.now = function() { return new Date(); }
+Date.time = function() { return Date.now().getUnixTime(); }
 module.exports =  {
 	setting: (event, status) => {
 		const regex2 = /[\w]{1,}(eve_sharedcache_tq_tranquility)/;
@@ -54,11 +57,12 @@ module.exports =  {
 	backup : (data) => {
 		console.log(data);
 		console.log(pathtofile + "/" + saveDir);
+
 		if (!fs.existsSync(pathtofile + "/" + saveDir)) {
 			fs.mkdirSync(pathtofile + "/" + saveDir, 0777);
 		}
 		for (let o in data){
-			fs.writeFileSync(pathtofile + "/" + saveDir + data[o] + ".backup_" + Date.now(), fs.readFileSync(pathtofile + "/" +data[o]));
+			fs.writeFileSync(pathtofile + "/" + saveDir + data[o] + ".backup_" +  new Date().getUnixTime(), fs.readFileSync(pathtofile + "/" +data[o]));
 		}
 	},
 	valide : (data) => {
@@ -67,11 +71,23 @@ module.exports =  {
 			fs.mkdirSync(pathtofile + "/" + saveDir, 0777);
 		}
 		for (let o in data.profiles){
-			fs.rename(pathtofile + "/" + saveDir + data.profiles[o], pathtofile + "/" +data.profiles[o] + ".backupAuto_" +Date.now(), function(err) {
+			//ne pas rename just copier
+			fs.rename(pathtofile + "/" + saveDir + data.profiles[o], pathtofile + "/" +data.profiles[o] + ".backup_" + new Date().getUnixTime(), function(err) {
 				if ( err ) console.log('ERROR: ' + err);
 				fs.createReadStream(pathtofile + "/" +data.main).pipe(fs.createWriteStream(pathtofile + "/" +data.profiles[o]));
 			});
 
+		}
+	},
+	showRecup : (event) => {
+		const regex = /core_char_([0-9]{0,}).dat.backup_([0-9]{0,})/;
+		if (fs.existsSync(pathtofile + "/" + saveDir)) {
+			fs.readdir(pathtofile + "/" + saveDir, function(err, items) {
+				for (let i=0; i<items.length; i++) {
+					let m = regex.exec(items[i]);
+					api.infoRecup(event, m[1], m[2]);
+				}
+			})
 		}
 	}
 }

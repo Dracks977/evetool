@@ -8,9 +8,21 @@ const {autoUpdater} = require("electron-updater")
 
 let win;
 
+const isSecondInstance = app.makeSingleInstance((commandLine, workingDirectory) => {
+    // Someone tried to run a second instance, we should focus our window.
+    if (win) {
+        if (win.isMinimized()) win.restore()
+        win.focus()
+    }
+})
+
+if (isSecondInstance) {
+    app.quit()
+}
+
 function createWindow () {
     // Create the browser window.
-    win = new BrowserWindow({width: 1100, height: 800})
+    win = new BrowserWindow({width: 1100, height: 800, backgroundColor: '#ecf0f1'})
 
     // et charge le index.html de l'application.
     win.loadURL(url.format({
@@ -31,6 +43,10 @@ function createWindow () {
     ipcMain.on('Rvalid', () => {
       console.log('Restor');
     });
+
+    ipcMain.on('showRecup', (event) => {
+      char.showRecup(event);
+    })
 
     ipcMain.on('Avalid', (event, data) => {
      char.valide(data);

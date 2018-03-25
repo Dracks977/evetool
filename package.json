@@ -1,6 +1,6 @@
 {
   "name": "Eve-Profile",
-  "version": "0.1.1",
+  "version": "0.1.4-alpha",
   "description": "Eve-Profile",
   "main": "app.js",
   "repository": "https://github.com/Dracks977/Eve-Profile",
@@ -22,6 +22,7 @@
     "electron-builder": "^20.5.1"
   },
   "dependencies": {
+    "dateformat": "^3.0.3",
     "electron-updater": "^2.21.1",
     "request": "^2.85.0"
   }

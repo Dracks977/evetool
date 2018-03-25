@@ -31,8 +31,11 @@
 });
 
 
- $('#Rvalid').click(() => {
-  electron.ipcRenderer.send('Rvalid');
+ $('#recup').click(() => {
+  $("#recupList").empty();
+  var modal = UIkit.modal("#modal-restore");
+  modal.show();
+  electron.ipcRenderer.send('showRecup');
 });
 
  function link(i){
@@ -59,6 +62,10 @@ function check(e){
  }
 }
 
+electron.ipcRenderer.on('showRecup', function(event,arg){
+  $('#recupList').prepend("<tr><td>"+arg.name + "</td><td>" + arg.date+'</td><td><a .uk-align-right uk-icon="icon: history"></a></td><td><a .uk-align-right uk-icon="icon: trash"></a></td></tr>');
+})
+
 electron.ipcRenderer.on('mac', function(event,arg){
   electron.ipcRenderer.send('sendChar');
 })
@@ -67,7 +74,7 @@ electron.ipcRenderer.on('setting', function(event,arg){
   console.log(arg)
   var modal = UIkit.modal("#modal-select");
   for (var i in arg)
-   $('#selectss').append("<option>"+arg[i]+"</option>")
+   $('#selectss').append("<option>"+arg[i]+'</option>')
  modal.show();
  $('#Aselect').click(function(){
    electron.ipcRenderer.send('sendChar', $( "#selectss option:selected" ).text()); 
