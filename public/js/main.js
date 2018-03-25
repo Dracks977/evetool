@@ -1,11 +1,11 @@
  const electron = require('electron');
- var remote = electron.remote;
- var dialog = remote.dialog;
- var i = 0;
+ let remote = electron.remote;
+ let dialog = remote.dialog;
+ let i = 0;
 
 
  $('#Bvalid').click(() => {
-  var file = new Array();
+  let file = new Array();
   $('label[op=1]').each(function(){
 
     file.push($(this).parent().parent().parent().parent().attr('fname'));
@@ -17,8 +17,8 @@
  /*ici object avec list des file a changer et le main profile*/
  $('#Avalid').click(() => {
   if($('#mainprofile').length !=0){
-   var file = new Array();
-   var main = $('#mainprofile').attr("fname");
+   let file = new Array();
+   let main = $('#mainprofile').attr("fname");
    $('label[op=1]').each(function(){
 
     file.push($(this).parent().parent().parent().parent().attr('fname'));
@@ -33,14 +33,14 @@
 
  $('#recup').click(() => {
   $("#recupList").empty();
-  var modal = UIkit.modal("#modal-restore");
+  let modal = UIkit.modal("#modal-restore");
   modal.show();
   electron.ipcRenderer.send('showRecup');
 });
 
  function link(i){
   console.log(i)
-  var old = $('#mainprofile').attr("uid");
+  let old = $('#mainprofile').attr("uid");
 
   $('#a' + old).show();
   $('#lab' + old).show();
@@ -62,8 +62,29 @@ function check(e){
  }
 }
 
+function deletrestor(e){
+  let file = $(e).parent().parent().attr('filename');
+  let id = $(e).parent().parent().attr('cid');
+  electron.ipcRenderer.send('removeback', {"file":file, "id":id});
+}
+
+function restore(e){
+  console.log("restore")
+  let file = $(e).parent().parent().attr('filename');
+  let id = $(e).parent().parent().attr('cid');
+  electron.ipcRenderer.send('restore', {"file":file, "id":id});
+}
+
+electron.ipcRenderer.on('removetrue', function(event,data){
+  $("[filename='"+data+"']" ).remove()
+})
+
+electron.ipcRenderer.on('restore', function(){
+  UIkit.modal.dialog('<p class="uk-modal-body">Profile restored</p>');
+})
+
 electron.ipcRenderer.on('showRecup', function(event,arg){
-  $('#recupList').prepend("<tr><td>"+arg.name + "</td><td>" + arg.date+'</td><td><a .uk-align-right uk-icon="icon: history"></a></td><td><a .uk-align-right uk-icon="icon: trash"></a></td></tr>');
+  $('#recupList').prepend("<tr cid='"+ arg.id +"' filename='"+ arg.file +"'><td>"+ arg.name + "</td><td>" + arg.date +'</td><td><a .uk-align-right onclick="restore(this)" uk-icon="icon: history"></a></td><td><a .uk-align-right onclick="deletrestor(this)" uk-icon="icon: trash"></a></td></tr>');
 })
 
 electron.ipcRenderer.on('mac', function(event,arg){
@@ -71,8 +92,8 @@ electron.ipcRenderer.on('mac', function(event,arg){
 })
 
 electron.ipcRenderer.on('setting', function(event,arg){
-  var modal = UIkit.modal("#modal-select");
-  for (var i in arg)
+  let modal = UIkit.modal("#modal-select");
+  for (let i in arg)
    $('#selectss').append("<option>"+arg[i]+'</option>')
  modal.show();
  $('#Aselect').click(function(){
@@ -108,7 +129,7 @@ electron.ipcRenderer.on('dl' , function(event, arg){
 electron.ipcRenderer.on('updateReady', function(event, text) {
   // changes the text of the button
   $('#load').hide();
-  var choice = dialog.showMessageBox(
+  let choice = dialog.showMessageBox(
     remote.getCurrentWindow(),
     {
       type: 'question',

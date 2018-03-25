@@ -11,13 +11,13 @@ let win;
 const isSecondInstance = app.makeSingleInstance((commandLine, workingDirectory) => {
     // Someone tried to run a second instance, we should focus our window.
     if (win) {
-        if (win.isMinimized()) win.restore()
+      if (win.isMinimized()) win.restore()
         win.focus()
     }
-})
+  })
 
 if (isSecondInstance) {
-    app.quit()
+  app.quit()
 }
 
 function createWindow () {
@@ -59,6 +59,14 @@ function createWindow () {
     ipcMain.on('sendChar', (event, data) => {
       char.sendChar(event, data);
     });
+
+    ipcMain.on('removeback', (event, data) => {
+      char.remove(event, data);
+    })
+
+    ipcMain.on('restore', (event, data) => {
+      char.restore(event, data);
+    })
 
 
   }

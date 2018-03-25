@@ -1,5 +1,6 @@
 const fs = require('fs');
 const api = require('./api.js');
+const fse = require('fs-extra');  
 let pathtofile = null;
 let setting;
 let dir;
@@ -7,6 +8,7 @@ const saveDir = "Eve_Profile/";
 Date.prototype.getUnixTime = function() { return this.getTime()/1000|0 };
 if(!Date.now) Date.now = function() { return new Date(); }
 Date.time = function() { return Date.now().getUnixTime(); }
+/*ajouter gestion d'erreur front avec envoie de message quand tache fini + enlever les truc syncrone*/
 module.exports =  {
 	setting: (event, status) => {
 		const regex2 = /[\w]{1,}(eve_sharedcache_tq_tranquility)/;
@@ -72,9 +74,25 @@ module.exports =  {
 			fs.readdir(pathtofile + "/" + saveDir, function(err, items) {
 				for (let i=0; i<items.length; i++) {
 					let m = regex.exec(items[i]);
-					api.infoRecup(event, m[1], m[2]);
+					api.infoRecup(event, m[1], m[2], m[0]);
 				}
 			})
+		}
+	},
+	remove : (event, data) => {
+		if (fs.existsSync(pathtofile + "/" + saveDir)) {
+			fs.unlink(pathtofile + "/" + saveDir + data.file,function(err){
+				if(err) return console.log(err);
+				event.sender.send('removetrue', data.file);
+			});  
+		}
+	},
+	restore : (event, data) => {
+		if (fs.existsSync(pathtofile + "/" + saveDir)) {
+			fse.copy(pathtofile + "/" + saveDir + data.file, pathtofile + "//core_char_" + data.id + ".dat", (err) => {  
+				if (err) throw err;  
+				event.sender.send('restore');
+			});  
 		}
 	}
 }
