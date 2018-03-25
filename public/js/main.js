@@ -71,7 +71,6 @@ electron.ipcRenderer.on('mac', function(event,arg){
 })
 
 electron.ipcRenderer.on('setting', function(event,arg){
-  console.log(arg)
   var modal = UIkit.modal("#modal-select");
   for (var i in arg)
    $('#selectss').append("<option>"+arg[i]+'</option>')
