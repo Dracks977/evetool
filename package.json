@@ -4,26 +4,32 @@
   "description": "Eve-Profile",
   "main": "app.js",
   "repository": "https://github.com/Dracks977/Eve-Profile",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "electron .",
-    "pmac": "electron-packager . --overwrite --platform=darwin --arch=x64 --icon=build/icon.icns --prune=true --out=release-builds",
-    "pwin": "electron-packager . --overwrite --asar=true --platform=win32 --arch=ia32 --icon=build/icon.ico --prune=true --out=release-builds --version-string.CompanyName=Dracks --version-string.FileDescription=CE --version-string.ProductName='Evetool'",
-    "build": "cross-env GH_TOKEN=604aba8734af055da299943f8e8623b8893c3dec build --win",
-    "buildm": "cross-env GH_TOKEN=604aba8734af055da299943f8e8623b8893c3dec build --mac",
-    "ship": "cross-env GH_TOKEN=604aba8734af055da299943f8e8623b8893c3dec build --win -p always",
-    "shipm": "cross-env GH_TOKEN=604aba8734af055da299943f8e8623b8893c3dec build --mac -p always"
-  },
-  "author": "Dracks",
-  "license": "ISC",
-  "devDependencies": {
-    "cross-env": "^5.1.4",
-    "electron": "^1.8.3",
-    "electron-builder": "^20.5.1"
-  },
-  "dependencies": {
-    "dateformat": "^3.0.3",
-    "electron-updater": "^2.21.1",
-    "request": "^2.85.0"
-  }
+  "build": {
+    "productName": "Eve-Profile",
+    "copyright": "Copyright © year ${author}",
+    "artifactName": "${productName}.${ext}",
+ },
+ "scripts": {
+  "test": "echo \"Error: no test specified\" && exit 1",
+  "start": "electron .",
+  "pmac": "electron-packager . --overwrite --platform=darwin --arch=x64 --icon=build/icon.icns --prune=true --out=release-builds",
+  "pwin": "electron-packager . --overwrite --asar=true --platform=win32 --arch=ia32 --icon=build/icon.ico --prune=true --out=release-builds --version-string.CompanyName=Dracks --version-string.FileDescription=CE --version-string.ProductName='Evetool'",
+  "build": "cross-env CSC_LINK=https://drive.google.com/uc?export=download&id=ttps://drive.google.com/open?id=1O2ykH7a7YpGw31koBAdT45VXI5jY0an CSC_KEY_PASSWORD=pommedu77 CN='Van Hemelryck Nathan' O='Endless Odyssey' E='Admin@Dracks.ovh' C='FR' GH_TOKEN=604aba8734af055da299943f8e8623b8893c3dec build --win",
+  "buildm": "cross-env CSC_LINK=https://drive.google.com/uc?export=download&id=ttps://drive.google.com/open?id=1O2ykH7a7YpGw31koBAdT45VXI5jY0an CSC_KEY_PASSWORD=pommedu77 CN='Van Hemelryck Nathan' O='Endless Odyssey' E='Admin@Dracks.ovh' C='FR'  GH_TOKEN=604aba8734af055da299943f8e8623b8893c3dec build --mac",
+  "ship": "cross-env CSC_LINK=https://drive.google.com/uc?export=download&id=ttps://drive.google.com/open?id=1O2ykH7a7YpGw31koBAdT45VXI5jY0an CSC_KEY_PASSWORD=pommedu77 CN='Van Hemelryck Nathan' O='Endless Odyssey' E='Admin@Dracks.ovh' C='FR'  GH_TOKEN=604aba8734af055da299943f8e8623b8893c3dec build --win -p always",
+  "shipm": "cross-env  CSC_LINK=https://drive.google.com/uc?export=download&id=ttps://drive.google.com/open?id=1O2ykH7a7YpGw31koBAdT45VXI5jY0an CSC_KEY_PASSWORD=pommedu77 CN='Van Hemelryck Nathan' O='Endless Odyssey' E='Admin@Dracks.ovh' C='FR' GH_TOKEN=604aba8734af055da299943f8e8623b8893c3dec  build --mac -p always"
+},
+"author": "Dracks",
+"license": "ISC",
+"devDependencies": {
+  "cross-env": "^5.1.4",
+  "electron": "^1.8.3",
+  "electron-builder": "^20.5.1"
+},
+"dependencies": {
+  "dateformat": "^3.0.3",
+  "electron-updater": "^2.21.1",
+  "request": "^2.85.0"
 }
+}
+
